@@ -1,0 +1,48 @@
+<script setup>
+import utilEnhance from '@/utils/utilEnhance';
+//引入VueOfficeExcel组件
+import VueOfficeExcel from '@vue-office/excel';
+//引入相关样式
+import '@vue-office/excel/lib/index.css';
+
+
+defineProps({
+  url: {
+    required: true,
+    type: String,
+    default: ''
+  }
+});
+
+const emit = defineEmits(['success', 'error']);
+
+function onSuccess() {
+  emit('success');
+}
+
+function onError() {
+  emit('error');
+}
+</script>
+
+<template>
+  <BaseContainer height="100%" class="preview-file">
+    <div class="preview-file__content">
+      <VueOfficeExcel :src="url" @rendered="onSuccess" @error="onError" class="preview-file__excel" />
+    </div>
+
+    <template #foot>
+      <div class="foot">
+        <div class="btn flex-1" @click="utilEnhance.downloadFile(url)">
+          下载
+        </div>
+      </div>
+    </template>
+  </BaseContainer>
+</template>
+
+<style scoped>
+.preview-file__excel {
+  height: 100%;
+}
+</style>
