@@ -40,19 +40,15 @@ function handleImagePreview() {
 <template>
   <BaseContainer height="100%" class="preview-file">
     <div class="preview-file__content">
-      <img :src="url" alt="" class="preview-file__image" @load="onSuccess" @error="onError" />
+      <img :src="url" alt="" class="preview-file__image" @load="onSuccess" @error="onError"
+        @click="handleImagePreview()" />
     </div>
 
     <el-image-viewer v-if="showPreview" :url-list="imageList" @close="showPreview = false" />
 
-    <template #foot>
-      <div class="foot">
-        <div class="btn btn--primary flex-1" @click="handleImagePreview()">
-          查看原图
-        </div>
-        <div class="btn ml-2" @click="utilEnhance.downloadFile(url)">
-          下载
-        </div>
+    <template #head>
+      <div class="tips">
+        点击图片可以预览大图
       </div>
     </template>
   </BaseContainer>
@@ -62,5 +58,12 @@ function handleImagePreview() {
 .preview-file__image {
   display: block;
   width: 100%;
+}
+
+.tips {
+  padding: var(--p-1) var(--p-2);
+  padding-bottom: 0;
+  color: var(--text-secondary-color);
+  font-size: var(--fs-2);
 }
 </style>

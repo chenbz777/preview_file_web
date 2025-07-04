@@ -1,5 +1,4 @@
 <script setup>
-import utilEnhance from '@/utils/utilEnhance';
 //引入VueOfficePdf组件
 import VueOfficePdf from '@vue-office/pdf';
 
@@ -28,14 +27,6 @@ function onError() {
     <div class="preview-file__content">
       <VueOfficePdf :src="url" @rendered="onSuccess" @error="onError" class="preview-file__pdf" />
     </div>
-
-    <template #foot>
-      <div class="foot">
-        <div class="btn flex-1" @click="utilEnhance.downloadFile(url)">
-          下载
-        </div>
-      </div>
-    </template>
   </BaseContainer>
 </template>
 

@@ -1,5 +1,4 @@
 <script setup>
-import utilEnhance from '@/utils/utilEnhance';
 //引入VueOfficeExcel组件
 import VueOfficeExcel from '@vue-office/excel';
 //引入相关样式
@@ -30,14 +29,6 @@ function onError() {
     <div class="preview-file__content">
       <VueOfficeExcel :src="url" @rendered="onSuccess" @error="onError" class="preview-file__excel" />
     </div>
-
-    <template #foot>
-      <div class="foot">
-        <div class="btn flex-1" @click="utilEnhance.downloadFile(url)">
-          下载
-        </div>
-      </div>
-    </template>
   </BaseContainer>
 </template>
 

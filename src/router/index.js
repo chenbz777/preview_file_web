@@ -5,6 +5,11 @@ const routes = [
     path: '/',
     name: 'home',
     component: () => import('@/views/home.vue')
+  },
+  {
+    path: '/encoding',
+    name: 'encoding',
+    component: () => import('@/views/encoding.vue')
   }
   // {
   //   path: '/:pathMatch(.*)',

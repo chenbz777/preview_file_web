@@ -1,5 +1,4 @@
 <script setup>
-import utilEnhance from '@/utils/utilEnhance';
 import VueOfficePptx from '@vue-office/pptx';
 
 
@@ -28,14 +27,6 @@ function onError(e) {
     <div class="preview-file__content">
       <VueOfficePptx :src="url" @rendered="onSuccess" @error="onError" class="preview-file__ppt" />
     </div>
-
-    <template #foot>
-      <div class="foot">
-        <div class="btn flex-1" @click="utilEnhance.downloadFile(url)">
-          下载
-        </div>
-      </div>
-    </template>
   </BaseContainer>
 </template>
 
