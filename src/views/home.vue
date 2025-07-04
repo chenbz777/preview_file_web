@@ -68,8 +68,15 @@ const componentName = ref('');
 
 const title = ref('');
 
+const loadingInstance = ElLoading.service({
+  fullscreen: true,
+  text: '加载中...',
+  background: 'rgba(0, 0, 0, 0.7)'
+});
+
 onMounted(() => {
   if (!route.query.url) {
+    loadingInstance.close();
     isError.value = true;
   }
 
@@ -82,12 +89,6 @@ onMounted(() => {
   }
 
   title.value = fileName;
-});
-
-const loadingInstance = ElLoading.service({
-  fullscreen: true,
-  text: '加载中...',
-  background: 'rgba(0, 0, 0, 0.7)'
 });
 
 const isError = ref(false);
