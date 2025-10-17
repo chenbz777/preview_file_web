@@ -102,18 +102,36 @@ function onError() {
   isError.value = true;
   loadingInstance.close();
 }
+
+// 下载文件
+function downloadFile() {
+  const a = document.createElement('a');
+  a.href = url.value;
+  a.download = title.value;
+  a.click();
+}
 </script>
 
 <template>
   <BaseContainer height="100vh" class="preview" v-if="url">
     <template #head>
-      <MobileEasyHead :title="title" />
+      <MobileEasyHead :title="title">
+        <template #right>
+          <div @click="downloadFile()">下载</div>
+        </template>
+      </MobileEasyHead>
     </template>
 
     <component :is="componentList[componentName]" :url="url" @success="onSuccess" @error="onError"
       v-if="!isError && componentName && componentList[componentName]" />
 
-    <van-empty image="error" description="文件加载失败" v-if="isError" />
+    <van-empty image="error" description="文件存在不兼容情况，请下载浏览" v-if="isError" />
+
+    <template #foot>
+      <div class="foot">
+        <div class="btn btn--block" @click="downloadFile()" v-if="isError">下载文件</div>
+      </div>
+    </template>
   </BaseContainer>
 
   <van-empty image="error" description="参数url为空" v-if="!url" />
@@ -122,5 +140,9 @@ function onError() {
 <style scoped>
 .preview {
   background-color: var(--bg-tertiary-color);
+}
+
+.foot {
+  padding: var(--p-2);
 }
 </style>
