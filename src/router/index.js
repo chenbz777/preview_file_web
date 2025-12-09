@@ -10,6 +10,11 @@ const routes = [
     path: '/encoding',
     name: 'encoding',
     component: () => import('@/views/encoding.vue')
+  },
+  {
+    path: '/createQrcode',
+    name: 'createQrcode',
+    component: () => import('@/views/createQrcode.vue')
   }
   // {
   //   path: '/:pathMatch(.*)',

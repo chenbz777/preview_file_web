@@ -1,10 +1,11 @@
 <script setup>
 import { ref, onMounted, defineAsyncComponent } from 'vue';
-import { useRoute } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 import { ElLoading } from 'element-plus';
 import MobileEasyHead from './components/MobileEasyHead.vue';
 
 
+const router = useRouter();
 const route = useRoute();
 
 const url = ref(decodeURIComponent(route.query.url || ''));
@@ -88,7 +89,7 @@ onMounted(() => {
     componentName.value = 'file'; // 默认使用文件预览组件
   }
 
-  title.value = fileName;
+  title.value = route.query.fileName || fileName;
 });
 
 const isError = ref(false);
@@ -110,15 +111,26 @@ function downloadFile() {
   a.download = title.value;
   a.click();
 }
+
+// 前往生成二维码页面
+function createQrcode() {
+  router.push({
+    path: '/createQrcode',
+    query: {
+      url: encodeURIComponent(url.value),
+      fileName: encodeURIComponent(title.value)
+    }
+  });
+}
 </script>
 
 <template>
   <BaseContainer height="100vh" class="preview" v-if="url">
     <template #head>
       <MobileEasyHead :title="title">
-        <template #right>
+        <!-- <template #right>
           <div @click="downloadFile()">下载</div>
-        </template>
+        </template> -->
       </MobileEasyHead>
     </template>
 
@@ -129,7 +141,8 @@ function downloadFile() {
 
     <template #foot>
       <div class="foot">
-        <div class="btn btn--block" @click="downloadFile()" v-if="isError">下载文件</div>
+        <div class="btn mr-1" @click="downloadFile()">下载</div>
+        <div class="btn" @click="createQrcode()">二维码</div>
       </div>
     </template>
   </BaseContainer>
@@ -144,5 +157,9 @@ function downloadFile() {
 
 .foot {
   padding: var(--p-2);
+  padding-top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 </style>
