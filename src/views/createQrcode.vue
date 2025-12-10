@@ -22,8 +22,8 @@ onMounted(() => {
 
   let previewUrl = `${window.location.origin}/?url=${encodeURIComponent(url)}`;
 
-  if (route.query.title) {
-    previewUrl += `&title=${route.query.title}`;
+  if (route.query.fileName) {
+    previewUrl += `&fileName=${route.query.fileName}`;
   }
 
   const qrOptions = {
