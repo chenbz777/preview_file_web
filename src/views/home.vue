@@ -8,12 +8,13 @@ import MobileEasyHead from './components/MobileEasyHead.vue';
 const router = useRouter();
 const route = useRoute();
 
-const url = ref(decodeURIComponent(route.query.url || ''));
+const url = ref('');
 
 const fileSuffixToFileIcon = {
   'pdf': 'pdf',
   'doc': 'word',
   'docx': 'word',
+  'wps': 'word',
   'xls': 'excel',
   'xlsx': 'excel',
   'ppt': 'ppt',
@@ -81,6 +82,9 @@ onMounted(() => {
     isError.value = true;
   }
 
+  url.value = decodeURIComponent(route.query.url);
+  console.log('url: ', url.value);
+
   const { fileName, fileType } = getFileInfo(url.value);
 
   componentName.value = fileType;
@@ -106,8 +110,15 @@ function onError() {
 
 // 下载文件
 function downloadFile() {
+
+  let downloadUrl = url.value;
+
+  if (route.query.download) {
+    downloadUrl = decodeURIComponent(route.query.download);
+  }
+
   const a = document.createElement('a');
-  a.href = url.value;
+  a.href = downloadUrl;
   a.download = title.value;
   a.click();
 }

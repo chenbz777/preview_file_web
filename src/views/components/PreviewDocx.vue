@@ -45,4 +45,8 @@ function onError() {
   padding: 0 !important;
   background-color: transparent !important;
 }
+
+:deep(section.docx) {
+  overflow: auto;
+}
 </style>
